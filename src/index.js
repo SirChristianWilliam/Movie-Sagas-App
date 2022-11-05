@@ -66,7 +66,7 @@ const genres = (state = [], action) => {
     }
 }
 
-const details = (state = [], action) => {
+const movieDetails = (state = [], action) => {
     console.log('in details ',action.payload)
     switch (action.type) {
         case 'GET_ONE_MOVIE':
@@ -81,7 +81,7 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
-        details
+        movieDetails
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

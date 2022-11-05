@@ -15,8 +15,9 @@ function App() {
           show the movie and the detail for
           that specific movie*/}
 
-        <Route path="/details" exact>
-        <DetailsPage />
+        <Route path="/:id" exact>
+        <DetailsPage 
+          />
         </Route>
 
         {/* Add Movie page */}

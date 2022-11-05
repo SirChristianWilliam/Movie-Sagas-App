@@ -12,35 +12,34 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    function expandMovie(event) {
-        console.log('yo',event)
-    }
-    const handleSubmit = (event) => {
-         console.log('event is',event.target)
-        console.log('in MovieList handleSubmit');
-        history.push('/details');
-    };
+ 
+    // const handleSubmit = (event) => {
+    //     console.log('event is', event.target)
+    //     console.log('in MovieList handleSubmit');
+
+    //     history.push('/details');
+    // };
 
     return (
         <main>
             <h1>MovieList</h1>
             <section className="movies">
-                <form onClick={handleSubmit}>
                 {movies.map(movie => {
                     return (
                         <div key={movie.id} >
                             <h3>{movie.title}</h3>
-
-                            <img 
-                                src={movie.poster} 
+                            <img
+                                src={movie.poster}
                                 alt={movie.title}
-                                onClick={expandMovie}
-                               
-                                />
+                                onClick={() => {
+                                    history.push(`/${movie.id}`)
+                                }
+                                }
+
+                            />
                         </div>
                     );
                 })}
-                </form>
             </section>
         </main>
 
