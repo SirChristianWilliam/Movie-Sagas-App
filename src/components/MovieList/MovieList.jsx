@@ -11,15 +11,7 @@ function MovieList() {
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
-
- 
-    // const handleSubmit = (event) => {
-    //     console.log('event is', event.target)
-    //     console.log('in MovieList handleSubmit');
-
-    //     history.push('/details');
-    // };
-
+    
     return (
         <main>
             <h1>MovieList</h1>

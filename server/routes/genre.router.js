@@ -2,23 +2,35 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
-router.get('/', (req, res) => {
-  // Add query to get all genres
+router.get('/:id', (req, res) => {
 
   // const sql = `
-  // SELECT * FROM "genres"."name";
+  // SELECT
+  // movies.*,
+  // json_agg(genres) AS genres
+  // FROM movies
+  // LEFT JOIN movies_genres
+  // ON movies_genres.movie_id = movies.id
+  // LEFT JOIN genres
+  // ON movies_genres.genre_id = genres.id 
+  // WHERE movies.id = $1
+  // GROUP BY movies.id;
   // `;
-  // const sqlParams = [req.body.poster, req.body.name];
-  // pool.query(sql,sqlParams)
-  // .then(dbRes => {
-  //   console.log(dbRes, 'is dbRes');
-  //   console.log(sqlParams,"is sqlParams");
-  //   res.send(dbRes.rows);
-  // })
-  // .catch(err => {
-  //   console.error('GET /genres error', err);
-  //   res.sendStatus(500);
-  // })
+  const sql = `
+  SELECT 
+  "genres"."name" as genre
+  FROM "genres"
+  JOIN "movies_genres" ON "genres"."id" = "movies_genres"."genre_id"
+  JOIN "movies" ON "movies"."id" = "movies_genres"."movie_id"
+  WHERE "movies"."id" = $1`
+
+  console.log('genre GET params id',req.params.id);
+
+  pool.query(sql, [req.params.id])
+  .then(dbRes => {
+    res.send(dbRes.rows);
+  })
+
 });
 
 module.exports = router;

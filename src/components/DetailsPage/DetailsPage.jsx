@@ -1,53 +1,43 @@
 
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { HashRouter as Router, Route } from 'react-router-dom';
-import { useHistory, useParams  } from 'react-router-dom';
-
-
-// import FavoriteItem from "../FavoriteItem/FavoriteItem";
+import { useHistory, useParams } from 'react-router-dom';
 
 function DetailsPage() {
     const dispatch = useDispatch();
     const params = useParams();
-    const movie = useSelector(store => store.movies.find((movie)=>movie.id==params.id));
+    const movie = useSelector(store => store.movies.find((movie) => movie.id == params.id));
+    const details = useSelector(store => store.movieDetails);
     const history = useHistory();
-    // const [theMovie, setTheMovie] = useState();
-    // function selectedMovie() {
-    //     console.log('in selectedMovie');
-    //     for(let movie of movies) {
-    //         if(movie.id == params.id) {
-    //             return movie;
-    //         }
-    //     }
-    // }
 
-     useEffect(() => {
-        //fetch
-        // setTheMovie(selectedMovie());
-    },[params.id])
-    // dispatch({
-    //     type: 'GET_ONE_MOVIE',
-    //     payload: {
-    //         movieId: movieId,
-    //         genreId: details
-    //     }
-    // })
-    const backToList = (event) => {
-        console.log('in backToList');
-        history.push('/')
+    useEffect(() => {
+        fetchGenres();
+
+    }, [params.id]);
+
+    function fetchGenres() {
+        console.log('in fetchDetails ')
+        dispatch({
+            type: 'FETCH_DETAILS',
+            payload: params.id //was 'GET_GENRES'
+        })
     }
+
     return (
         <>
             <h1>details page</h1>
-            <img 
+            <img
                 src={movie.poster}
+                alt={movie.title}
             />
             <p> {movie.title} </p>
             <p> {movie.description}</p>
-            {/* <p> {movie.genre}</p> */}
+            {details.map(detail => (
+                <p key={detail.genre}> {detail.genre} </p>
+            ))}
             <button
-                onClick={backToList}>Back to list</button>
+                onClick={() => (history.push('/'))}>Back to list</button>
         </>
     )
 }

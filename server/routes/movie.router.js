@@ -15,6 +15,22 @@ router.get('/', (req, res) => {
     })
 
 });
+router.get('/:id', (req,res) => {
+  let id = req.params.id;
+  console.log('GET movie.router id',id);
+  const sql = `
+  SELECT * FROM "movies"
+  WHERE "id" = ${id}
+  ORDER BY "title" ASC;`;
+  pool.query(query) 
+  .then(result => {
+    res.send(result.rows);
+  })
+  .catch(err => {
+    console.log('ERROR IN GET/ID',err);
+    res.sendStatus(500);
+  })
+})
 
 router.post('/', (req, res) => {
   console.log(req.body);
