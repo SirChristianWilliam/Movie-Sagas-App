@@ -1,23 +1,21 @@
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { HashRouter as Router, Route } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router-dom';
 
 function DetailsPage() {
     const dispatch = useDispatch();
-    const params = useParams();
+    const params = useParams(); //Params are page ID for that movie
     const movie = useSelector(store => store.movies.find((movie) => movie.id == params.id));
     const details = useSelector(store => store.movieDetails);
     const history = useHistory();
-
+    console.log(params,"WHAT ARE THE PARAMS!?!?!");
     useEffect(() => {
         fetchGenres();
-
     }, [params.id]);
 
     function fetchGenres() {
-        console.log('in fetchDetails ')
+        console.log('in fetchGenres')
         dispatch({
             type: 'FETCH_DETAILS',
             payload: params.id //was 'GET_GENRES'

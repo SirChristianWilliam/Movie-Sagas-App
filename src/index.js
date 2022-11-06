@@ -14,35 +14,42 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
-
     yield takeEvery('FETCH_DETAILS', fetchDetails);
-    // yield takeEvery('SET_DETAILS',setDetails);
-    
-}
-
-function* fetchDetails(action) {
-    console.log('get action payload asdfn:', action.payload);
-
-    try {
-        const response = yield axios.get(`/api/genre/${action.payload}`);
-        // console.log(response.data, "RESERESRSERERSERSE")
-        yield put({ type: 'SET_GENRES', payload: response.data });
-
-    } catch {
-        console.log('get all error');
-    }     
 }
 
 function* fetchAllMovies() {
     // get all movies from the DB
     try {
         const movies = yield axios.get('/api/movie');
-        console.log('get all:', movies.data);
+        console.log('fetch all movies & receive movies.data:', movies.data);
         yield put({ type: 'SET_MOVIES', payload: movies.data });
-
-    } catch {
+    }
+     catch {
         console.log('get all error');
-    }     
+    }
+}
+
+
+function* fetchDetails(action) {
+    console.log('fetchDetails action.payload is:', action.payload);
+    try {
+        const response = yield axios.get(`/api/genre/${action.payload}`);
+        yield put({ type: 'SET_GENRES', payload: response.data });
+    } 
+    catch {
+        console.log('get all error');
+    }
+}
+
+const movieDetails = (state = [], action) => {
+    console.log('in details ', action.payload);
+    console.log('and the action', action)
+    switch (action.type) {
+        case 'SET_GENRES':
+            return action.payload;
+        default:
+            return state;
+    }
 }
 
 // Create sagaMiddleware
@@ -58,27 +65,7 @@ const movies = (state = [], action) => {
     }
 }
 
-// // Used to store the movie genres
-// const genres = (state = {}, action) => {
-//     console.log('in genres variable',action.payload)
-//     switch (action.type) {
-//         case 'SET_GENRES':
-//             return action.payload;
-//         default:
-//             return state;
-//     }
-// }
 
-const movieDetails = (state = [], action) => {
-    console.log('in details ',action.payload);
-    console.log('and the action',action)
-    switch (action.type) {
-        case 'SET_GENRES':
-            return action.payload;
-        default: 
-            return state;
-    }
-}
 
 // Create one store that all components can use
 const storeInstance = createStore(
@@ -96,7 +83,7 @@ sagaMiddleware.run(rootSaga);
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={storeInstance}>
-        <App />
+            <App />
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')
