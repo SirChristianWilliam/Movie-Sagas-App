@@ -3,10 +3,13 @@ import './App.css';
 import MovieList from '../MovieList/MovieList'
 import DetailsPage from '../DetailsPage/DetailsPage';
 import AddMoviePage from '../AddMoviePage/AddMoviePage';
+
+
 function App() {
   return (
     <div className="App">
       <h1>The Movies Saga!</h1>
+      
       <Router>        
         <Route path="/" exact>
           <MovieList />
@@ -25,7 +28,7 @@ function App() {
         <Route path="/add">
           <AddMoviePage />
         </Route>
-        
+
       </Router>
     </div>
   );

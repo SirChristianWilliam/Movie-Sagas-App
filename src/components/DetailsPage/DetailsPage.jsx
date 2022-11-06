@@ -2,6 +2,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
+import Button from '@mui/material/Button';
+
+
+
 
 function DetailsPage() {
     const dispatch = useDispatch();
@@ -34,8 +38,11 @@ function DetailsPage() {
             {details.map(detail => (
                 <p key={detail.genre}> {detail.genre} </p>
             ))}
-            <button
-                onClick={() => (history.push('/'))}>Back to list</button>
+            <Button
+                variant="contained"
+                color="secondary"
+                
+                onClick={() => (history.push('/'))}>Back to list</Button>
         </>
     )
 }
