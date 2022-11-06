@@ -1,13 +1,1 @@
-// import {useDispatch, useSelector} from 'react-redux';
-// import {useHistory} from 'react-router-dom';
-
-// function AddMoviePage() {
-//     const dispatch = useDispatch();
-//     const history = useHistory();
-
-// }
-
-// return( 
-
-// )
-// export default AddMoviePage;
+//Future component to add, will have a movie form to input a new movie to the movieList page
