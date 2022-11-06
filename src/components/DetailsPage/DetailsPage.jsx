@@ -5,7 +5,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
 import Grid from '@material-ui/core/Grid';
-// import Paper from '@material-ui/core/Paper';
 import { Container } from '@mui/system';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -61,14 +60,18 @@ function DetailsPage() {
                         <p> {movie.title} </p>
 
                         <p className="detailsDesc"> {movie.description}</p>
-
+                        <Card className="genresCard" elevation={6}>
+                        <p className="genresPtag">Genres</p>
                         {details.map(detail => (
-                            <p key={detail.genre}> {detail.genre} </p>
+                            <p 
+                            className="tags"
+                            key={detail.genre}
+                            > {detail.genre} </p>
                         ))}
+                        </Card>
                     </Card>
                     <Button
-                        variant="contained"
-                        color="primary"
+                         variant="contained"
                         className="homeBtn"
                         onClick={() => (history.push('/'))}>Back to homepage</Button>
 

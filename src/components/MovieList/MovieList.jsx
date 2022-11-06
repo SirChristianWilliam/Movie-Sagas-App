@@ -1,9 +1,8 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './MovieList.css'
 import { useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
-// import Paper from '@material-ui/core/Paper';
 import { Container } from '@mui/system';
 
 //MUI CARD
@@ -38,33 +37,38 @@ function MovieList() {
         <>
             <Container>
                 <main>
-                    <h1>MovieList</h1>
-                    <Grid container  spacing={4}>
-                        <Grid spacing={8} >
+                    {/* <h1>MovieList</h1> */}
+                    <br></br><br></br><br></br><br></br>
+                    <Grid container spacing={1} >
+                        <Grid >
                             <section className="movies">
-                            <Card elevation={6} className="yo">
-                                {movies.map(movie => {
-                                   
-                                    return (
-                                        <div key={movie.id}>
-                                            <h3>{movie.title}</h3>
-                                            
-                                            <Card elevation={6}>
-                                                <img
-                                                    src={movie.poster}
-                                                    alt={movie.title}
-                                                    onClick={() => {
-                                                        history.push(`/${movie.id}`)
-                                                        }
-                                                    }
-                                                />
-                                            </Card>
-                                        </div>
+                                <Card
+                                    sx={{ bgcolor: '#161313', color: 'rgb(200 176 176)', }}
+                                    elevation={6} className="moviesCard">
+                                    {movies.map(movie => {
 
-                                    );
-                                 
-                                })}
-                            </Card>
+                                        return (
+                                            <div key={movie.id}>
+                                                <h3>{movie.title}</h3>
+
+                                                <Card elevation={6} sx={{ p: 2, bgcolor: '#a497b240'}}>
+                                                    <img
+
+                                                        className='moviesImages'
+                                                        src={movie.poster}
+                                                        alt={movie.title}
+                                                        onClick={() => {
+                                                            history.push(`/${movie.id}`)
+                                                        }
+                                                        }
+                                                    />
+                                                </Card>
+                                            </div>
+
+                                        );
+
+                                    })}
+                                </Card>
                             </section>
                         </Grid>
                     </Grid>
