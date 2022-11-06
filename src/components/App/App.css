@@ -11,7 +11,9 @@ img {
   height: 274px;
   border: 4px solid black;
 }
-
+#spacePlease {
+  padding-bottom:10px;
+}
 .moviesImages:hover {
   outline: 7px solid red;
   outline-offset: -5px;

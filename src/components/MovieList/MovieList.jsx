@@ -20,8 +20,6 @@ function MovieList() {
         <>
             <Container>
                 <main>
-                    {/* <br> could easily just be a margin or padding as well */}
-                    <br></br><br></br><br></br><br></br>
                     <Grid container spacing={1}>
                         <Grid >
                             <section className="movies">
