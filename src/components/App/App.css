@@ -1,6 +1,14 @@
 .App {
   text-align: center;
 }
+body {
+  background-image: radial-gradient(#607d8b,#607d8b,black)
+}
+img {
+  width: 185px;
+  height: 274px;
+  border:4px solid black;
+ }
 
 
 .App-header {
@@ -18,12 +26,38 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+
 .movies {
   display: flex;
-    justify-content: space-between;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border:2px solid black;
+
+}
+.detailsContainer {
+ 
+}
+.detailsGridContainer {
+
+}
+.detailsCardContainer {
+  margin:auto;
+}
+.yo {
+    display: flex;
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.87);
+    -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+    box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
+    overflow: hidden;
+    align-content: center;
+    justify-content: space-around;
     flex-wrap: wrap;
+    padding:40px;
+}
+
+.css-zcbmsk-MuiButtonBase-root-MuiButton-root {
+  display: inline-block;
 }

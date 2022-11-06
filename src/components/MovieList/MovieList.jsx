@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './MovieList.css'
 import { useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';
 import { Container } from '@mui/system';
 
 //MUI CARD
@@ -39,23 +39,17 @@ function MovieList() {
             <Container>
                 <main>
                     <h1>MovieList</h1>
-                    <Grid container >
-                        {/* xs={3} sm={6} md={12} */}
+                    <Grid container  spacing={4}>
                         <Grid spacing={8} >
                             <section className="movies">
-
+                            <Card elevation={6} className="yo">
                                 {movies.map(movie => {
-
+                                   
                                     return (
                                         <div key={movie.id}>
                                             <h3>{movie.title}</h3>
-                                            <Card >
-                                                <CardHeader 
-                                                action={
-                                                    <IconButton>
-                                                    <DeleteForeverOutlined />
-                                                  </IconButton>
-                                                }/>
+                                            
+                                            <Card elevation={6}>
                                                 <img
                                                     src={movie.poster}
                                                     alt={movie.title}
@@ -68,8 +62,9 @@ function MovieList() {
                                         </div>
 
                                     );
+                                 
                                 })}
-
+                            </Card>
                             </section>
                         </Grid>
                     </Grid>
