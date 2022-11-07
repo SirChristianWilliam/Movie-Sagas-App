@@ -56,11 +56,15 @@ function DetailsPage() {
                             src={movie.poster} 
                             alt={movie.title}
                         />
-            {/* Same thing for line 60 */}
+            {/* Same thing for line 61 & 62, we know that it will be a single
+              object and want that object's data  */}
                         <p> {movie.title} </p> 
                         <p className="detailsDesc"> {movie.description}</p>
                         <Card className="genresCard" elevation={6}>
                         <p className="genresPtag">Genres</p>
+            {/* Here we do need to map through the details array. This will
+              display the genres associated with the single movies object, even though
+                it has information of ALL the movies genres */}
                         {details.map(detail => (
                             <p 
                             className="tags"
@@ -70,15 +74,13 @@ function DetailsPage() {
                         </Card>
                     </Card>
                     <Button
-                         variant="contained"
+                        variant="contained"
                         className="homeBtn"
                         onClick={() => (history.push('/'))}>Back to homepage</Button>
-
                 </Grid>
-
             </Container>
         </>
     )
-}
+};
 
 export default DetailsPage;
