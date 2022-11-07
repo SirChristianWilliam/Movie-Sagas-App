@@ -50,8 +50,8 @@ function MovieList() {
                                                     />
                                                 </Card>
                                             </div>
-                                        );
-                                    })};
+                                        )
+                                    })}
                                 </Card>
                             </section>
                         </Grid>

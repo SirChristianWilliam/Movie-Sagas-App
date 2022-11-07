@@ -1,6 +1,5 @@
 -- CREATE DATABASE "saga_movies_weekend"
 
-
 CREATE TABLE "movies" (
   "id" SERIAL PRIMARY KEY,
   "title" VARCHAR(120) NOT NULL,
@@ -8,25 +7,19 @@ CREATE TABLE "movies" (
   "description" TEXT NOT NULL
 );
 
-
 CREATE TABLE "genres" (
   "id" SERIAL PRIMARY KEY,
   "name" VARCHAR(80) NOT NULL
 );
 
-
--- JUNCTION TABLE
--- Movies can have multiple genres and each genre can be applied to multiple movies
--- This is many-to-many!
+-- JUNCTION TABLE (many-to-many)
 CREATE TABLE "movies_genres" (
   "id" SERIAL PRIMARY KEY,
   "movie_id" INT REFERENCES "movies" NOT NULL,
   "genre_id" INT REFERENCES "genres" NOT NULL
 );
 
---------[ DATA! ]---------
-
--- starter movies
+-- default movies
 INSERT INTO "movies" ("title", "poster", "description")
 VALUES 
 ('Avatar', 'images/avatar.jpeg', 'Avatar (marketed as James Cameron''s Avatar) is a 2009 American epic science fiction film directed, written, produced, and co-edited by James Cameron, and stars Sam Worthington, Zoe Saldana, Stephen Lang, Michelle Rodriguez, and Sigourney Weaver. The film is set in the mid-22nd century, when humans are colonizing Pandora, a lush habitable moon of a gas giant in the Alpha Centauri star system, in order to mine the mineral unobtanium, a room-temperature superconductor. The expansion of the mining colony threatens the continued existence of a local tribe of Na''vi – a humanoid species indigenous to Pandora. The film''s title refers to a genetically engineered Na''vi body operated from the brain of a remotely located human that is used to interact with the natives of Pandora.'),
@@ -44,7 +37,7 @@ VALUES
 ('Titanic', 'images/titanic.jpg', 'Titanic is a 1997 American epic romance and disaster film directed, written, co-produced, and co-edited by James Cameron. A fictionalized account of the sinking of the RMS Titanic, it stars Leonardo DiCaprio and Kate Winslet as members of different social classes who fall in love aboard the ship during its ill-fated maiden voyage.'),
 ('Toy Story', 'images/toy-story.jpg', 'Toy Story is a 1995 American computer-animated adventure comedy film produced by Pixar Animation Studios and released by Walt Disney Pictures. The feature-film directorial debut of John Lasseter, it was the first feature-length film to be entirely computer-animated, as well as the first feature film from Pixar. The screenplay was written by Joss Whedon, Andrew Stanton, Joel Cohen, and Alec Sokolow from a story by Lasseter, Stanton, Pete Docter, and Joe Ranft. The film features music by Randy Newman, and was executive-produced by Steve Jobs and Edwin Catmull. The film features the voices of Tom Hanks, Tim Allen, Don Rickles, Wallace Shawn, John Ratzenberger, Jim Varney, Annie Potts, R. Lee Ermey, John Morris, Laurie Metcalf, and Erik von Detten. Taking place in a world where anthropomorphic toys come to life when humans are not present, its plot focuses on the relationship between an old-fashioned pull-string cowboy doll named Woody and an astronaut action figure, Buzz Lightyear, as they evolve from rivals competing for the affections of their owner Andy Davis to friends who work together to be reunited with him after being separated.');
 
--- starter genres
+-- default genres
 INSERT INTO "genres" ("name")
 VALUES 
 ('Adventure'),
@@ -62,7 +55,7 @@ VALUES
 ('Superhero');        --13
 
 
--- starter movies and genres data
+-- default movies and genres data
 INSERT INTO "movies_genres" ("movie_id", "genre_id")
 VALUES 
 (1,1), (1,3), (1,4),      -- Avatar

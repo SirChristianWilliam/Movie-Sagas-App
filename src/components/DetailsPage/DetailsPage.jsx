@@ -64,7 +64,8 @@ function DetailsPage() {
                         <p className="genresPtag">Genres</p>
             {/* Here we do need to map through the details array. This will
               display the genres associated with the single movies object, even though
-                it has information of ALL the movies genres */}
+                it has information of ALL the movies genres. details.map loops
+                through the details object to retrieve its genre for that id */}
                         {details.map(detail => (
                             <p 
                             className="tags"
