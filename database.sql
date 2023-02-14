@@ -1,25 +1,91 @@
 -- CREATE DATABASE "saga_movies_weekend"
 
+
 CREATE TABLE "movies" (
   "id" SERIAL PRIMARY KEY,
   "title" VARCHAR(120) NOT NULL,
   "poster"  VARCHAR(120) NOT NULL,
   "description" TEXT NOT NULL
 );
+-- 1. Select all movies with the 'Adventure' genre? Use the id.
 
+
+SELECT "movies"."title" as title, "genres"."name" as genre FROM "genres"
+JOIN "movies_genres"
+ON "movies_genres"."genre_id" = "genres"."id" 
+JOIN "movies"
+ON "movies"."id" = "movies_genres"."movie_id"
+WHERE "genres"."name" = 'Adventure';
+
+
+-- 2. Get the count of movies that have each genre.  
+-- Don't worry about unused genres (Disaster has 0 movies)
+
+SELECT "genres"."name" as genre_name, count("movies"."id") as movie_count FROM "genres"
+JOIN "movies_genres"
+ON "movies_genres"."genre_id" = "genres"."id" 
+JOIN "movies"
+ON "movies"."id" = "movies_genres"."movie_id"
+GROUP BY "genres"."id";
+
+-- 3. Add the genre "Superhero" to "Star Wars".
+
+INSERT INTO "movies_genres" ("movie_id", "genre_id")
+VALUES ('10','13');
+
+-- 4. Remove the "Comedy" genre from "Titanic"
+DELETE FROM "movies_genres" WHERE ("movie_id"='13' AND "genre_id"='4');
+
+
+
+-- 1. How would you get all movies and all of their genres, but only one row per movie? (For example, on the list page we want to see all the movies and all of the movies' genres that apply)
+-- There're a few ways to do this, research ARRAY_AGG or JSON_AGG
+
+SELECT ("movies"."title", "genres"."name"), COUNT(*),
+	array_agg("genres"."id"),
+	(array_agg("genres"."id"))[1:3],
+	(SELECT SUM(x) FROM UNNEST(array_agg("genres"."id")) x)
+FROM "movies"
+	LEFT JOIN "genres" ON "movies"."id" = "genres"."id"
+GROUP BY 1
+ORDER BY 1,2;
+
+ SELECT
+  movies.*,
+  json_agg(genres) AS genres
+  FROM movies
+  LEFT JOIN movies_genres
+  ON movies_genres.movie_id = movies.id
+  LEFT JOIN genres
+  ON movies_genres.genre_id = genres.id 
+  WHERE movies.id = 1
+  GROUP BY movies.id;
+
+SELECT 
+  "genres"."name" as genre 
+  FROM "genres"
+  JOIN "movies_genres" ON "genres"."id" = "movies_genres"."genre_id"
+  JOIN "movies" ON "movies"."id" = "movies_genres"."movie_id"
+  WHERE "movies"."id" = 1;
+  
 CREATE TABLE "genres" (
   "id" SERIAL PRIMARY KEY,
   "name" VARCHAR(80) NOT NULL
 );
 
--- JUNCTION TABLE (many-to-many)
+
+-- JUNCTION TABLE
+-- Movies can have multiple genres and each genre can be applied to multiple movies
+-- This is many-to-many!
 CREATE TABLE "movies_genres" (
   "id" SERIAL PRIMARY KEY,
   "movie_id" INT REFERENCES "movies" NOT NULL,
   "genre_id" INT REFERENCES "genres" NOT NULL
 );
+DROP TABLE "movies_genres";
+--------[ DATA! ]---------
 
--- default movies
+-- starter movies
 INSERT INTO "movies" ("title", "poster", "description")
 VALUES 
 ('Avatar', 'images/avatar.jpeg', 'Avatar (marketed as James Cameron''s Avatar) is a 2009 American epic science fiction film directed, written, produced, and co-edited by James Cameron, and stars Sam Worthington, Zoe Saldana, Stephen Lang, Michelle Rodriguez, and Sigourney Weaver. The film is set in the mid-22nd century, when humans are colonizing Pandora, a lush habitable moon of a gas giant in the Alpha Centauri star system, in order to mine the mineral unobtanium, a room-temperature superconductor. The expansion of the mining colony threatens the continued existence of a local tribe of Na''vi – a humanoid species indigenous to Pandora. The film''s title refers to a genetically engineered Na''vi body operated from the brain of a remotely located human that is used to interact with the natives of Pandora.'),
@@ -37,38 +103,38 @@ VALUES
 ('Titanic', 'images/titanic.jpg', 'Titanic is a 1997 American epic romance and disaster film directed, written, co-produced, and co-edited by James Cameron. A fictionalized account of the sinking of the RMS Titanic, it stars Leonardo DiCaprio and Kate Winslet as members of different social classes who fall in love aboard the ship during its ill-fated maiden voyage.'),
 ('Toy Story', 'images/toy-story.jpg', 'Toy Story is a 1995 American computer-animated adventure comedy film produced by Pixar Animation Studios and released by Walt Disney Pictures. The feature-film directorial debut of John Lasseter, it was the first feature-length film to be entirely computer-animated, as well as the first feature film from Pixar. The screenplay was written by Joss Whedon, Andrew Stanton, Joel Cohen, and Alec Sokolow from a story by Lasseter, Stanton, Pete Docter, and Joe Ranft. The film features music by Randy Newman, and was executive-produced by Steve Jobs and Edwin Catmull. The film features the voices of Tom Hanks, Tim Allen, Don Rickles, Wallace Shawn, John Ratzenberger, Jim Varney, Annie Potts, R. Lee Ermey, John Morris, Laurie Metcalf, and Erik von Detten. Taking place in a world where anthropomorphic toys come to life when humans are not present, its plot focuses on the relationship between an old-fashioned pull-string cowboy doll named Woody and an astronaut action figure, Buzz Lightyear, as they evolve from rivals competing for the affections of their owner Andy Davis to friends who work together to be reunited with him after being separated.');
 
--- default genres
+-- starter genres
 INSERT INTO "genres" ("name")
 VALUES 
-('Adventure'),
-('Animated'),
-('Biographical'),
-('Comedy'),
-('Disaster'),
-('Drama'),
-('Epic'),
-('Fantasy'),
-('Musical'),
+('Adventure'),	--1
+('Animated'),	--2
+('Biographical'),	--3
+('Comedy'),	--4
+('Disaster'),	--5
+('Drama'),	--6
+('Epic'),	--7
+('Fantasy'),	--8
+('Musical'),	--9
 ('Romantic'),         --10
 ('Science Fiction'),  --11
 ('Space-Opera'),      --12
 ('Superhero');        --13
 
 
--- default movies and genres data
+-- starter movies and genres data
 INSERT INTO "movies_genres" ("movie_id", "genre_id")
 VALUES 
-(1,1), (1,3), (1,4),      -- Avatar
-(2,1), (2,11), (2,12),    -- Beauty
-(3,3),                    -- Cpt Marvel
-(4,4), (4,7),             -- Nemo
-(5,3),                    -- Gone Girl
-(6,12),                   -- Véronique
-(7,9),(7,2),              -- Bond
-(8,4),                    -- Pi
-(9,4),                    -- Monsters
-(10,4),                   -- Star Wars
-(11,6), (11,11),          -- Martian
-(12,8), (12,9),           -- Social Net
-(13,4), (13,10), (13,6),  -- Titanic
-(14,3), (14,2), (14,4);   -- Toy Story
+(1,1), (1,7), (1,11),      -- Avatar
+(2,1), (2,6), (2,8), (2,10),    -- Beauty
+(3,1), (3,7), (3,8), (3,11), (3,13),                  -- Cpt Marvel
+(4,1), (4,2), (4,4),           -- Nemo
+(5,5),  (5,12),                  -- Gone Girl
+(6,10),                   -- Véronique
+(7,1),(7,7),              -- Bond
+(8,1),  (8,3), (8,5), (8,6),                  -- Pi
+(9,1), (9,2), (9,4),                   -- Monsters
+(10,1),  (10,7), (10,11),                -- Star Wars
+(11,1), (11,5),  (11,12),        -- Martian
+(12,3), (12,6),           -- Social Net
+(13,1), (13,5), (13,6),  -- Titanic
+(14,1), (14,2), (14,4);   -- Toy Story
