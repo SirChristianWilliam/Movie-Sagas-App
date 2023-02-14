@@ -29,6 +29,9 @@ console.log('genre GET params id', req.params.id); // id that was passed thru
     .then(dbRes => {
       res.send(dbRes.rows);
     })
+    .catch((err => {
+      console.log('error in genres router')
+    }))
 });
 // Line 28 is saying to take the command (sql)
 // queries the command with the req.params.id array.

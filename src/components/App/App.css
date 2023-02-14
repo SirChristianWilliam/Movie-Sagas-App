@@ -14,11 +14,30 @@ img {
 #spacePlease {
   padding-bottom:10px;
 }
-.moviesImages:hover {
-  outline: 7px solid red;
-  outline-offset: -5px;
+.moviesImages {
+  border-radius:20px;
+
 }
 
+.moviesImages:hover {
+  /* outline: 2px solid rgb(86, 33, 33); */
+  outline-offset: 5px;
+  cursor: pointer;
+  /* border:4px solid rgb(71, 14, 14); */
+  border-radius:20px;
+  /* transition: 1s; */
+}
+.containerForImage:hover {
+  /* color:blue; */
+  box-shadow:0px 0px 25px white !important;
+  background-image: linear-gradient(to bottom, black, transparent);
+  background-color: rgba(255, 0, 0, 0.758) !important;
+}
+.containerForImage {
+  background-image: linear-gradient(to top, black, transparent);
+  box-shadow: 0px 0px 1px white !important;
+  background-color: rgba(255, 0, 0, 0.387) !important;
+ }
 .netclips {
   color: red;
   border-bottom: 1px solid red;

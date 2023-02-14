@@ -15,7 +15,28 @@ import axios from 'axios';
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies); // Goes to line 21
     yield takeEvery('FETCH_DETAILS', fetchDetails); // Goes to line 34
+    // yield takeEvery('GET_SINGLE_MOVIE', fetchSingle);
 }
+
+
+// function* fetchSingle(action) {
+//     try {
+//         const response = yield axios.get(`/api/movie/${action.payload}`);
+//         yield put({ type: 'SET_ACTIVE_MOVIE', payload: response.data});
+//     }
+//     catch {
+//         console.log('in fetchSingle');
+//     }
+// };
+
+// const activeMovie = (state = [], action) => {
+//     switch(action.type) {
+//         case 'SET_ACTIVE_MOVIE':
+//             return action.payload;
+//         default:
+//             return state;
+//     }
+// }
 
 //Generator 
 function* fetchAllMovies() {
@@ -72,6 +93,7 @@ const storeInstance = createStore(
     combineReducers({
         movies, 
         movieDetails // Currently primarily used to display the movie's list of genres
+        // ,activeMovie
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

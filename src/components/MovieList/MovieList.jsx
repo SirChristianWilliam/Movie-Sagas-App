@@ -30,9 +30,9 @@ function MovieList() {
                     index redux store */}
                                     {movies.map(movie => {
                                         return (
-                                            <div key={movie.id}>
+                                            <div key={movie.id} >
                                                 <h3>{movie.title}</h3>
-                                                <Card elevation={6} sx={{ p: 2, bgcolor: '#a497b240' }}>
+                                                <Card elevation={6} sx={{ p: 2, bgcolor: '#a497b240' }} className="containerForImage">
                                                     <img
                                                         className='moviesImages'
                                                         src={movie.poster} // As we loop through the whole array of movies,
@@ -45,7 +45,8 @@ function MovieList() {
                                                             // with a url that ends in that movie's specific id. This way, the movie 
                                                             //page is created, essentially, on click. This allows a dynamic web page
                                                             // in case we don't know what urls we will need in the future, especially 
-                                                            // if there is an 'add movie' form involved. 
+                                                            // if there is an 'add movie' form involved. The details page uses
+                                                            // ${movie.id} as the params on the useEffect(page load)
                                                         }
                                                     />
                                                 </Card>

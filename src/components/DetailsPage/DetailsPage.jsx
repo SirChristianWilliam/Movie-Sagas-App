@@ -27,7 +27,11 @@ function DetailsPage() {
         dispatch({
             type: 'FETCH_DETAILS', // To line 17 in index.js
             payload: params.id // {id:'7'}, or whatever the id of the clicked on image is
-        })
+        });
+        // dispatch({
+        //     tyep: 'GET_SINGLE_MOVIE',
+        //     payload: params.id,
+        // })
     };
 
     return (
@@ -52,7 +56,7 @@ function DetailsPage() {
             // Remember line 13? Since we know there is only going to be
             // one object, we don't need to map or loop through anything
             // here. All we need to do is access that object's src, which is 
-            // connected by the id by association
+            // connected by the id 
                             src={movie.poster} 
                             alt={movie.title}
                         />

@@ -17,6 +17,21 @@ router.get('/', (req, res) => {
     })
 });
 
+// router.get('/:id', (req,res) => {
+//   const queryText = `
+//   SELECT * FROM "movies"
+//   WHERE "id" = $1;
+//   `;
+//   pool.query(queryText, [req.params.id])
+//   .then(result => {
+//     res.send(result.rows[0]);
+//   })
+//   .catch(err => {
+//     console.log('ERROR in /GET/:id',err);
+//     res.sendStatus(500);
+//   })
+// })
+
 
 // CODE BELOW IS UNFINISHED CODE THAT WILL BE USED IN CONJUNCTION WITH THE AddMoviePage TO
 // 'POST' MOVIE THAT ARE ADDED VIA A FORM
